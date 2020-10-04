@@ -38,6 +38,7 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+"
 " Plugin for support latex
 Plug 'lervag/vimtex'
 Plug 'vim-latex/vim-latex'
@@ -45,8 +46,10 @@ Plug 'vim-latex/vim-latex'
 Plug 'nvie/vim-flake8'
 Plug 'universal-ctags/ctags'
 
+Plug 'ctrlpvim/ctrlp.vim'
+
 "NERDTree
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 
 "Commentary
 Plug 'tpope/vim-commentary'
@@ -65,10 +68,11 @@ Plug 'morhetz/gruvbox'
 " indentLine
 Plug 'Yggdroot/indentLine'
 
-  
-" Plug 'Shougo/deoplete.nvim'   
-" Plug 'roxma/nvim-yarp'   
-" Plug 'roxma/vim-hug-neovim-rpc'  
+Plug 'Shougo/deoplete.nvim'   
+Plug 'roxma/nvim-yarp'   
+Plug 'roxma/vim-hug-neovim-rpc'  
+
+Plug 'dhruvasagar/vim-table-mode'
 
 " Initialize plugin system
 call plug#end()
@@ -84,6 +88,7 @@ set incsearch
 set lazyredraw              " redraw only when we need to
 set magic
 set backspace=indent,eol,start
+set encoding=UTF-8
 " sets how many lines of history VIM has to remember
 set history=500
 
@@ -115,11 +120,15 @@ set display=lastline
 " Enable cursor line position tracking:
 " set cursorline
 
-nmap <C-h> <C-w><C-h>
-nmap <C-j> <C-w><C-j>
-nmap <C-k> <C-w><C-k>
-nmap <C-l> <C-w><C-l>
+" nmap <C-h> <C-w><C-h>
+" nmap <C-j> <C-w><C-j>
+" nmap <C-k> <C-w><C-k>
+" nmap <C-l> <C-w><C-l>
 
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 " Setting for ESC
 imap jj <esc>
 
@@ -134,12 +143,10 @@ let g:deoplete#enable_at_startup = 1
 nmap <F8> :TagbarToggle<CR>
 
 " Setting emmet
-let g:user_emmet_mode='n' "Onely enable normal mode functions
-let g:user_emmet_mode='inv' "Enable all functions, which is equal to
 let g:user_emmet_mode='a' " enable all function in all mode
 let g:user_emmet_install_global = 0 " Enable just for html/css
 autocmd FileType html,css EmmetInstall
-let g:user_emmet_leader_key='<C-Z>' "redefine trigger key "redefine trigger key
+let g:user_emmet_leader_key='<C-Z>' "redefine trigger key 
 
 " ---------------------
 " Airline Themes
@@ -149,8 +156,8 @@ let g:airline_detect_crypt = 1
 let g:airline_detect_spell = 1
 let g:airline_detect_iminsert = 0
 let g:airline_inactive_collapse = 1
-" let g:airline_theme = 'aurora'
-let g:airline_theme = 'jet'
+let g:airline_theme = 'gruvbox'
+" let g:airline_theme = 'jet'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#bufferline#overwrite_variables = 1
@@ -175,7 +182,7 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline_left_sep = ' '
 let g:airline_right_sep = ' '
 let g:airline#extensions#tabline#right_alt_sep = '|'
-
+set guifont=DroidSansMono\ Nerd\ Font:h11
 " ---------------------
 " Vimtex
 " ---------------------
@@ -194,11 +201,11 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " To Open/reload the vimrc file
-nmap <Leader>e :e $MYVIMRC <cr>
-nmap <Leader>s :source $MYVIMRC <cr>
+nmap <Leader>ev :e $MYVIMRC <cr>
+nmap <Leader>es :source $MYVIMRC <cr>
 
 " NERDTree Config
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
@@ -305,3 +312,11 @@ augroup go
   au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
 
 augroup END
+
+augroup FileTypeSpecificAutocommands
+  autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd FileType php setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+let g:tex_flavor = 'latex'
+
